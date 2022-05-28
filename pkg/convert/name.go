@@ -5,10 +5,10 @@ import (
 	"unicode"
 )
 
-// Convert - преоразует строку, возводя первую букву в верхний регситр,
+// Name - преоразует строку, возводя первую букву в верхний регситр,
 // и добавляет перфикс и постфикс.
 // (первую букву постфикса тоже приводит в вверхний регистр)
-func Convert(prefix, name, postfix string) string {
+func Name(prefix, name, postfix string) string {
 	if len(name) == 1 {
 		name = string(unicode.ToUpper(rune(name[0])))
 	} else {
@@ -24,6 +24,14 @@ func Convert(prefix, name, postfix string) string {
 	}
 
 	return prefix + name + postfix
+}
+
+func ToModuleDir(name string) string {
+	return Name("", name, "")
+}
+
+func ToContainerName(name string) string {
+	return Name("container", name, "")
 }
 
 func ToStyleName(name string) string {
