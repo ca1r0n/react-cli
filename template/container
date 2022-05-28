@@ -1,0 +1,21 @@
+import React, {ReactNode} from "react";
+import { {{.NameTemplate}} } from "../templates/{{.NameTemplateFile}}";
+import "../styles/{{.NameCss}}";
+
+interface {{.NameState}} {}
+interface {{.NameProps}} {}
+
+interface {{.NameInterface}} {
+	state: {{.NameState}}
+    props: {{.NameProps}}
+}
+
+export class {{.NameClass}} extends React.Component<ExampleProps, ExampleState> implements ExampleInterface{
+    state: {{.NameState}} = {
+    }
+
+
+    render(): ReactNode {
+        return TemplateExample(this)
+    }
+}

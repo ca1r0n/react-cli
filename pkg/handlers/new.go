@@ -20,10 +20,10 @@ func (c *Controller) NewHandler() error {
 		return err
 	}
 
-	if err := fm.CopyDir(filepath.Join(c.config.REACT_CLI, "template", "empty-project"), name); err != nil {
+	err := fm.CopyDir(filepath.Join(c.config.REACT_CLI, "template", "empty-project"), name)
+	if err != nil {
 		return err
 	}
-
 	c.Print(fmt.Sprintf("Project %s is created successfully", name))
 
 	return nil

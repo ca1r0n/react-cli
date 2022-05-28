@@ -17,7 +17,7 @@ export interface ExampleInterface {
 }
 
 export class Example extends React.Component<ExampleProps, ExampleState> implements ExampleInterface{
-    state = {
+    state: ExampleState = {
         example: "example template"
     }
 

@@ -30,7 +30,16 @@ func main() {
 			fmt.Println(err)
 			logger.Println(err)
 		}
-
+	case "module", "m":
+		if err := controller.ModuleHandler(); err != nil {
+			fmt.Println(err)
+			logger.Println(err)
+		}
+	case "container", "c":
+		if err := controller.ContainerHandler(); err != nil {
+			fmt.Println(err)
+			logger.Println(err)
+		}
 	case "help":
 		controller.HelpHandler()
 	default:
