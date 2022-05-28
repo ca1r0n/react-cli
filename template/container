@@ -10,12 +10,12 @@ interface {{.NameInterface}} {
     props: {{.NameProps}}
 }
 
-export class {{.NameClass}} extends React.Component<ExampleProps, ExampleState> implements ExampleInterface{
+export class {{.NameClass}} extends React.Component<{{.NameProps}}, {{.NameState}}> implements {{.NameInterface}} {
     state: {{.NameState}} = {
     }
 
 
     render(): ReactNode {
-        return TemplateExample(this)
+        return {{.NameTemplate}}(this)
     }
 }

@@ -12,7 +12,7 @@ func (c *Controller) ModuleHandler() error {
 		return ErrNotHaveProjectName
 	}
 
-	name := converters.ToModuleName(os.Args[2])
+	name := converters.Convert("", os.Args[2], "")
 
 	if err := os.Mkdir(filepath.Join("src", "modules", name), 0777); err != nil {
 		return err
@@ -24,7 +24,7 @@ func (c *Controller) ModuleHandler() error {
 
 	os.Mkdir("actions", 0777)
 	os.Mkdir("components", 0777)
-	os.Mkdir("container", 0777)
+	os.Mkdir("containers", 0777)
 	os.Mkdir("enums", 0777)
 	os.Mkdir("interfaces", 0777)
 	os.Mkdir("styles", 0777)

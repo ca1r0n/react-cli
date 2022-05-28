@@ -20,7 +20,7 @@ type containerTemplate struct {
 
 func Container(w io.Writer, name string) error {
 	data := containerTemplate{
-		NameCss:          converters.Format(converters.ToStyleName(name), "scss"),
+		NameCss:          converters.Format(converters.Convert("style", name, ""), "scss"),
 		NameState:        converters.Convert("", name, "state"),
 		NameProps:        converters.Convert("", name, "props"),
 		NameInterface:    converters.Convert("", name, "interface"),
@@ -29,12 +29,6 @@ func Container(w io.Writer, name string) error {
 		NameTemplateFile: converters.Convert("template", name, ""),
 	}
 
-	err := template.Must(template.New("container").
-		ParseFiles(filepath.Join(os.Getenv("REACT_CLI"), "template", "container"))).
+	return template.Must(template.ParseFiles(filepath.Join(os.Getenv("REACT_CLI"), "template", "container"))).
 		Execute(w, data)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }

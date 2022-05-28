@@ -19,27 +19,62 @@ func (c *Controller) ContainerHandler() error {
 		return ErrNotHaveProjectName
 	}
 
-	nameModule := os.Args[2]
-	nameContainer := os.Args[3]
 	//currentPath, _ := os.Getwd()
-	name := converters.ToContainerName(nameContainer) + ".tsx"
+	module := os.Args[2]
+	container := os.Args[3]
 
-	path := filepath.Join("src", "modules", nameModule, "container", name)
+	nameContainer := converters.Convert("container", container, "") + ".tsx"
+	nameTemplate := converters.Convert("template", container, "") + ".tsx"
+	nameStyle := converters.Convert("style", container, "") + ".scss"
 
-	_, err := os.Stat(path)
-	if err == nil {
-		return errors.New("file already exist")
+	pathStyle := filepath.Join("src", "modules", module, "styles", nameStyle)
+	pathContainer := filepath.Join("src", "modules", module, "containers", nameContainer)
+	pathTemplate := filepath.Join("src", "modules", module, "templates", nameTemplate)
+
+	{
+		if _, err := os.Stat(pathContainer); err == nil {
+			return errors.New("file already exist")
+		}
+
+		if _, err := os.Stat(pathStyle); err == nil {
+			return errors.New("file already exist")
+		}
+
+		if _, err := os.Stat(pathTemplate); err == nil {
+			return errors.New("file already exist")
+		}
 	}
 
-	file, err := os.Create(path)
+	fileContainer, err := os.Create(pathContainer)
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer fileContainer.Close()
 
-	err = fill.Container(file, nameContainer)
+	fileStyle, err := os.Create(pathStyle)
 	if err != nil {
 		return err
+	}
+	defer fileStyle.Close()
+
+	fileTemplate, err := os.Create(pathTemplate)
+	if err != nil {
+		return err
+	}
+	defer fileTemplate.Close()
+
+	{
+		if err = fill.Template(fileTemplate, container); err != nil {
+			return err
+		}
+
+		if err = fill.Container(fileContainer, container); err != nil {
+			return err
+		}
+
+		if err = fill.Style(fileStyle, container); err != nil {
+			return err
+		}
 	}
 
 	return nil

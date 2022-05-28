@@ -1,0 +1,9 @@
+import React from "react";
+import { {{.NameContainer}} } from "../containers/{{.NameContainerFile}}";
+import classNames from "classnames";
+
+export function {{.NameTemplate}}(c: {{.NameInterface}}) {
+    return <div className={classNames("{{.NameStyle}}")}>
+
+    </div>
+}

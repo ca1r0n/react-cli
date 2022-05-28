@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	logger := log.New(logErr, "react-cli", log.Lshortfile|log.Ldate)
+	logger := log.New(logErr, "react-cli", log.Ldate|log.Llongfile)
 	controller := handlers.New(conf)
 
 	if len(os.Args) == 1 {
