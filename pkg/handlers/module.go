@@ -3,7 +3,7 @@ package handlers
 import (
 	"os"
 	"path/filepath"
-	"v2/pkg/converters"
+	"v2/pkg/convert"
 )
 
 func (c *Controller) ModuleHandler() error {
@@ -12,7 +12,7 @@ func (c *Controller) ModuleHandler() error {
 		return ErrNotHaveProjectName
 	}
 
-	name := converters.Convert("", os.Args[2], "")
+	name := convert.ToModuleDir(os.Args[2])
 
 	if err := os.Mkdir(filepath.Join("src", "modules", name), 0777); err != nil {
 		return err

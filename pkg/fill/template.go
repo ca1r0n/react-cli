@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"text/template"
-	"v2/pkg/converters"
+	"v2/pkg/convert"
 )
 
 type templateTemplate struct {
@@ -18,11 +18,10 @@ type templateTemplate struct {
 
 func Template(w io.Writer, name string) error {
 	data := templateTemplate{
-		NameContainer:     converters.Convert("", name, ""),
-		NameContainerFile: converters.Convert("container", name, ""),
-		NameTemplate:      converters.Convert("Template", name, ""),
-		NameInterface:     converters.Convert("", name, "interface"),
-		NameStyle:         converters.ToStyleName(name),
+		NameContainerFile: convert.ToContainerFile(name),
+		NameTemplate:      convert.ToTemplateName(name),
+		NameInterface:     convert.ToInterfaceName(name),
+		NameStyle:         convert.ToStyle(name),
 	}
 
 	path := filepath.Join(os.Getenv("REACT_CLI"), "template", "template")

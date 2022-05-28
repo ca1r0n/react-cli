@@ -1,4 +1,4 @@
-package converters
+package convert
 
 const (
 	tsx  = "tsx"

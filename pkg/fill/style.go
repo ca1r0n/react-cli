@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"text/template"
-	"v2/pkg/converters"
+	"v2/pkg/convert"
 )
 
 type styleTemplate struct {
@@ -14,7 +14,7 @@ type styleTemplate struct {
 
 func Style(w io.Writer, name string) error {
 	data := styleTemplate{
-		Name: converters.ToStyleName(name),
+		Name: convert.ToStyle(name),
 	}
 
 	path := filepath.Join(os.Getenv("REACT_CLI"), "template", "containerStyle")

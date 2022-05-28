@@ -4,7 +4,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
-	"v2/pkg/converters"
+	"v2/pkg/convert"
 	"v2/pkg/fill"
 )
 
@@ -19,13 +19,12 @@ func (c *Controller) ContainerHandler() error {
 		return ErrNotHaveProjectName
 	}
 
-	//currentPath, _ := os.Getwd()
-	module := os.Args[2]
+	module := convert.ToModuleDir(os.Args[2])
 	container := os.Args[3]
 
-	nameContainer := converters.Convert("container", container, "") + ".tsx"
-	nameTemplate := converters.Convert("template", container, "") + ".tsx"
-	nameStyle := converters.Convert("style", container, "") + ".scss"
+	nameContainer := convert.Tsx(convert.ToContainerFile(container))
+	nameTemplate := convert.Tsx(convert.ToTemplateFile(container))
+	nameStyle := convert.Scss(convert.ToStyleFile(container))
 
 	pathStyle := filepath.Join("src", "modules", module, "styles", nameStyle)
 	pathContainer := filepath.Join("src", "modules", module, "containers", nameContainer)

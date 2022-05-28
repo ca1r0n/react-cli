@@ -1,4 +1,4 @@
-package converters
+package convert
 
 func Format(name, format string) string {
 	return name + "." + format

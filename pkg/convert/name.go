@@ -1,4 +1,4 @@
-package converters
+package convert
 
 import (
 	"strings"
@@ -30,10 +30,38 @@ func ToModuleDir(name string) string {
 	return Name("", name, "")
 }
 
-func ToContainerName(name string) string {
+func ToContainerFile(name string) string {
 	return Name("container", name, "")
 }
 
-func ToStyleName(name string) string {
+func ToTemplateFile(name string) string {
+	return Name("template", name, "")
+}
+
+func ToStyleFile(name string) string {
+	return Name("style", name, "")
+}
+
+func ToStateName(name string) string {
+	return Name("", name, "state")
+}
+
+func ToPropsName(name string) string {
+	return Name("", name, "props")
+}
+
+func ToInterfaceName(name string) string {
+	return Name("", name, "interface")
+}
+
+func ToClassName(name string) string {
+	return Name("", name, "")
+}
+
+func ToTemplateName(name string) string {
+	return Name("Template", name, "")
+}
+
+func ToStyle(name string) string {
 	return strings.ReplaceAll(strings.ToLower(name), " ", "-")
 }

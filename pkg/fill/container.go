@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"text/template"
-	"v2/pkg/converters"
+	"v2/pkg/convert"
 )
 
 type containerTemplate struct {
@@ -20,15 +20,16 @@ type containerTemplate struct {
 
 func Container(w io.Writer, name string) error {
 	data := containerTemplate{
-		NameCss:          converters.Format(converters.Convert("style", name, ""), "scss"),
-		NameState:        converters.Convert("", name, "state"),
-		NameProps:        converters.Convert("", name, "props"),
-		NameInterface:    converters.Convert("", name, "interface"),
-		NameClass:        converters.Convert("", name, ""),
-		NameTemplate:     converters.Convert("Template", name, ""),
-		NameTemplateFile: converters.Convert("template", name, ""),
+		NameCss:          convert.Scss(convert.ToStyleFile(name)),
+		NameState:        convert.ToStateName(name),
+		NameProps:        convert.ToPropsName(name),
+		NameInterface:    convert.ToInterfaceName(name),
+		NameClass:        convert.ToClassName(name),
+		NameTemplate:     convert.ToTemplateName(name),
+		NameTemplateFile: convert.ToTemplateFile(name),
 	}
 
-	return template.Must(template.ParseFiles(filepath.Join(os.Getenv("REACT_CLI"), "template", "container"))).
-		Execute(w, data)
+	path := filepath.Join(os.Getenv("REACT_CLI"), "template", "container")
+
+	return template.Must(template.ParseFiles(path)).Execute(w, data)
 }
