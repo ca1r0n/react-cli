@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -9,8 +10,8 @@ import (
 
 func (c *Controller) NewHandler() error {
 	if len(os.Args) < 3 {
-		c.Print("enter a name for the new project")
-		return ErrNotHaveProjectName
+		c.Print(ErrNotHaveProjectName)
+		return errors.New(ErrNotHaveProjectName)
 	}
 
 	// TODO: validator/ name of project

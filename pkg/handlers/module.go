@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"v2/pkg/convert"
@@ -8,8 +10,8 @@ import (
 
 func (c *Controller) ModuleHandler() error {
 	if len(os.Args) < 3 {
-		c.Print("enter a name for the new module")
-		return ErrNotHaveProjectName
+		c.Print(ErrNotHaveProjectName)
+		return errors.New(ErrNotHaveProjectName)
 	}
 
 	name := convert.ToModuleDir(os.Args[2])
@@ -30,5 +32,6 @@ func (c *Controller) ModuleHandler() error {
 	os.Mkdir("styles", 0777)
 	os.Mkdir("templates", 0777)
 
+	c.Print(fmt.Sprintf("Module %s is created successfully", name))
 	return nil
 }

@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"v2/pkg/convert"
@@ -85,5 +86,6 @@ func (c *Controller) ContainerHandler() error {
 		}
 	}
 
+	c.Print(fmt.Sprintf("Container %s is created successfully", container))
 	return nil
 }
