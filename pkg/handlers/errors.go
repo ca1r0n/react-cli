@@ -1,7 +1,7 @@
 package handlers
 
-import "errors"
-
 var (
-	ErrNotHaveProjectName = errors.New("command \"new\" must contain the name of the project")
+	ErrNotHaveProjectName   = "command \"new\" must contain the name of the project"
+	ErrNotHaveModuleName    = "command \"container\" must contain the name of the module"
+	ErrNotHaveContainerName = "command \"container\" must contain the name of the container"
 )

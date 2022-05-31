@@ -10,13 +10,13 @@ import (
 
 func (c *Controller) ContainerHandler() error {
 	if len(os.Args) < 3 {
-		c.Print("enter a module name")
-		return ErrNotHaveProjectName
+		c.Print(ErrNotHaveModuleName)
+		return errors.New(ErrNotHaveModuleName)
 	}
 
 	if len(os.Args) < 4 {
-		c.Print("enter a module name")
-		return ErrNotHaveProjectName
+		c.Print(ErrNotHaveContainerName)
+		return errors.New(ErrNotHaveContainerName)
 	}
 
 	module := convert.ToModuleDir(os.Args[2])
@@ -32,46 +32,55 @@ func (c *Controller) ContainerHandler() error {
 
 	{
 		if _, err := os.Stat(pathContainer); err == nil {
-			return errors.New("file already exist")
+			c.Print(err.Error())
+			return err
 		}
 
 		if _, err := os.Stat(pathStyle); err == nil {
-			return errors.New("file already exist")
+			c.Print(err.Error())
+			return err
 		}
 
 		if _, err := os.Stat(pathTemplate); err == nil {
-			return errors.New("file already exist")
+			c.Print(err.Error())
+			return err
 		}
 	}
 
 	fileContainer, err := os.Create(pathContainer)
 	if err != nil {
+		c.Print(err.Error())
 		return err
 	}
 	defer fileContainer.Close()
 
 	fileStyle, err := os.Create(pathStyle)
 	if err != nil {
+		c.Print(err.Error())
 		return err
 	}
 	defer fileStyle.Close()
 
 	fileTemplate, err := os.Create(pathTemplate)
 	if err != nil {
+		c.Print(err.Error())
 		return err
 	}
 	defer fileTemplate.Close()
 
 	{
 		if err = fill.Template(fileTemplate, container); err != nil {
+			c.Print(err.Error())
 			return err
 		}
 
 		if err = fill.Container(fileContainer, container); err != nil {
+			c.Print(err.Error())
 			return err
 		}
 
 		if err = fill.Style(fileStyle, container); err != nil {
+			c.Print(err.Error())
 			return err
 		}
 	}

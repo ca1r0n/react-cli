@@ -5,7 +5,7 @@ import "../styles/{{.NameCss}}";
 interface {{.NameState}} {}
 interface {{.NameProps}} {}
 
-interface {{.NameInterface}} {
+export interface {{.NameInterface}} {
 	state: {{.NameState}}
     props: {{.NameProps}}
 }
